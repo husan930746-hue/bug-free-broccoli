@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PUBG Yangiliklari Portal</title>
+<style>
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(#87ceeb,#bfe9ff);color:#0b2540}
+header{background:#0b3d91;color:white;padding:20px;text-align:center}
+header h1{margin:0;letter-spacing:2px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:15px}
+nav button{padding:10px 16px;border:none;border-radius:20px;background:white;color:#0b3d91;font-weight:bold;cursor:pointer}
+.container{width:95%;max-width:1100px;margin:25px auto}
+.section-title{font-size:26px;margin:30px 0 15px 0;border-left:6px solid #0b3d91;padding-left:10px}
+.update-card{background:white;border-radius:14px;margin-bottom:22px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+.update-image{width:100%;height:220px;object-fit:cover}
+.update-content{padding:18px}
+.version{display:inline-block;background:#0b3d91;color:white;padding:6px 12px;border-radius:20px;font-weight:bold;margin-bottom:10px}
+.update-title{font-size:20px;margin:10px 0}
+.update-text{color:#333;line-height:1.6}
+footer{text-align:center;padding:40px 10px;font-size:22px;color:rgba(0,0,0,0.25);font-weight:bold}
+.page{display:none}
+.page.active{display:block}
+.pager{display:flex;justify-content:center;gap:10px;margin:30px 0}
+.pager button{padding:10px 15px;border:none;border-radius:20px;background:#0b3d91;color:white;font-weight:bold;cursor:pointer}
+.logout{position:fixed;top:15px;right:15px;background:#ff4d4d;color:white;border:none;padding:10px 14px;border-radius:20px;font-weight:bold;cursor:pointer}
+</style>
+</head>
+<body>
+
+<button class="logout" onclick="logout()">Chiqish</button>
+
+<header>
+<h1>PUBG YANGILIKLARI PORTAL</h1>
+<nav>
+<button onclick="showPage(1)">1?sahifa</button>
+<button onclick="showPage(2)">2?sahifa</button>
+<button onclick="showPage(3)">3?sahifa</button>
+</nav>
+</header>
+
+<div class="container">
+
+<!-- 1-SAHIFA -->
+<div class="page active" id="page1">
+<h2 class="section-title">1?SAHIFA • 2026 Yangilanishlari</h2>
+
+<script>
+const updates = {
+"4.3": `4.3 yangilanishida katta global event boshlandi. O‘yinchilarga maxsus vaqtinchalik topshiriqlar qo‘shildi va ularni bajarish orqali noyob mukofotlar olish mumkin. Yangi Lucky Spin ruletkasi kiritildi va unda eksklyuziv qurol skinlari hamda transport bezaklari mavjud. Shuningdek yangi darajadagi X?Suit to‘plami qo‘shildi. Ushbu kiyim animatsiyali effektlarga ega bo‘lib, jang vaqtida maxsus ko‘rinish beradi. Ultimate darajadagi kiyimlar o‘yin ichidagi reytingga qarab ochiladi. Lobby dizayni yangilandi va ovoz effektlari yanada sifatli bo‘ldi.`,
+"4.2": `4.2 versiyasida mavsumiy qishki event o‘yinga qo‘shildi. Qorli hududlarda maxsus missiyalar paydo bo‘lib, o‘yinchilar yangi sovrinlarni qo‘lga kiritishlari mumkin. Premium ruletka orqali afsonaviy kostyumlar va noyob parashyut skinlari tushadi. Yangi muz tematikasidagi X?Suit qo‘shildi va u darajaga qarab ko‘rinishini o‘zgartiradi. Ultimate kiyimlar to‘plami esa premium sandiqlardan olinadi. Yangi emotsiyalar va lobby animatsiyalari qo‘shilib, o‘yin muhiti yanada jonlandi.`,
+"4.1": `4.1 yangilanishida kiber sport mavzusidagi event boshlandi. Turnir uslubidagi rejim qo‘shildi va jamoaviy mukofotlar tizimi kengaytirildi. Esports ruletkasi orqali professional sahnaga mos kostyumlar, qurol bezaklari va avatar ramkalari olinadi. Neon uslubidagi yangi X?Suit to‘plami qo‘shilib, u yorqin effektlari bilan ajralib turadi. Ultimate kiyimlar jang paytida maxsus animatsiya beradi. Tomoshabin rejimi yaxshilandi va interfeys yanada qulaylashtirildi.`,
+"4.0": `4.0 versiya yubiley yangilanishi sifatida chiqarildi. Maxsus Anniversary event davomida kundalik sovg‘alar va bonus topshiriqlar beriladi. Bayramona ruletka orqali tarixiy skinlar va cheklangan seriyadagi qurollar tarqatiladi. Klassik uslubdagi X?Suit qayta ishlanib o‘yinga qo‘shildi. Ultimate kiyimlar oltin effektlar va maxsus kirish animatsiyasiga ega. Xaritalarda bayram bezaklari paydo bo‘ldi va o‘yin ichidagi musiqa yangilandi.`,
+"3.9": `3.9 yangilanishida yozgi festival eventi boshlandi. Plyaj hududlarida maxsus mini o‘yinlar va topshiriqlar mavjud. Summer ruletkasi orqali rang-barang kiyimlar, quyosh ko‘zoynaklari va transport skinlari olinadi. Yangi tropik uslubdagi X?Suit qo‘shildi va suv effektlari bilan bezatilgan. Ultimate kiyimlar issiq rangli animatsiyalarga ega. Suv transportlari tezligi oshirildi va yangi emote raqslar qo‘shildi.`,
+"3.8": `3.8 versiyasida tungi janglar eventi qo‘shildi. Maxsus Night Mode rejimida o‘yinchilar qorong‘i sharoitda jang qilishadi. Neon ruletka orqali yorqin kostyumlar va lazer effektli qurollar olinadi. Sirli uslubdagi X?Suit to‘plami qo‘shilib, u qorong‘ida porlab turadi. Ultimate kiyimlar tutun va yorug‘lik animatsiyalariga ega. Yangi fon musiqalari va qo‘rqinchli atmosfera o‘yinga boshqacha kayfiyat beradi.`
+};
+</script>
+
+<div class="update-card"><img class="update-image" src="https://images.unsplash.com/photo-1542751371-adc38448a05e"><div class="update-content"><div class="version">4.3 • 2026</div><div class="update-title">Katta grafik yangilanish</div><div class="update-text"><script>document.write(longText.repeat(2))</script></div></div></div>
+
+<div class="update-card"><img class="update-image" src="https://images.unsplash.com/photo-1511512578047-dfb367046420"><div class="update-content"><div class="version">4.2 • 2026</div><div class="update-title">Yangi jang mexanikasi</div><div class="update-text"><script>document.write(longText.repeat(2))</script></div></div></div>
+
+<div class="update-card"><img class="update-image" src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8"><div class="update-content"><div class="version">4.1 • 2026</div><div class="update-title">Xarita kengaytirildi</div><div class="update-text"><script>document.write(longText.repeat(2))</script></div></div></div>
+
+<div class="update-card"><img class="update-image" src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f"><div class="update-content"><div class="version">4.0 • 2026</div><div class="update-title">Qurollar balansi</div><div class="update-text"><script>document.write(longText.repeat(2))</script></div></div></div>
+
+<div class="update-card"><img class="update-image" src="https://images.unsplash.com/photo-1605902711622-cfb43c4437b5"><div class="update-content"><div class="version">3.9 • 2026</div><div class="update-title">Yangi mavsum boshlandi</div><div class="update-text"><script>document.write(longText.repeat(2))</script></div></div></div>
+
+<div class="update-card"><img class="update-image" src="https://images.unsplash.com/photo-1560250097-0b93528c311a"><div class="update-content"><div class="version">3.8 • 2026</div><div class="update-title">Event va mukofotlar</div><div class="update-text"><script>document.write(longText.repeat(2))</script></div></div></div>
+
+</div>
+
+<!-- 2-SAHIFA -->
+<div class="page" id="page2">
+<h2 class="section-title">2?SAHIFA • 2024–2025 Yangilanishlari</h2>
+<p>Bu sahifaga keyingi yangilanishlar joylanadi.</p>
+</div>
+
+<!-- 3-SAHIFA -->
+<div class="page" id="page3">
+<h2 class="section-title">3?SAHIFA • 2018–2023 Yangilanishlari</h2>
+<p>Eski yangilanishlar arxivi shu yerda bo‘ladi.</p>
+</div>
+
+<div class="pager">
+<button onclick="showPage(1)">1</button>
+<button onclick="showPage(2)">2</button>
+<button onclick="showPage(3)">3</button>
+</div>
+
+</div>
+
+<footer>Husan</footer>
+
+<script>
+function showPage(num){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById('page'+num).classList.add('active');
+window.scrollTo(0,0);
+}
+function logout(){
+if(confirm('Saytdan chiqmoqchimisiz?')){
+alert('Chiqdingiz');
+}
+}
+</script>
+
+</body>
+</html>
